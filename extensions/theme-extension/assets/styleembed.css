@@ -1,0 +1,44 @@
+.card_product_rating-box.main-prdouct-star {
+  cursor: pointer;
+}
+ul.card_product_star {
+  cursor: pointer;
+}
+ul.card_product_star svg {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+}
+.card_product_rating-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 14px 0;
+  gap: 9px;
+  line-height: 11px;
+  
+}
+.card_product_rating_box {
+  display: flex;
+
+  padding: 14px 0;
+  gap: 9px;
+  line-height: 11px;
+  flex-direction: column;
+}
+.card_product_star {
+  display: flex;
+  list-style: none;
+  padding: 0 !important;
+  margin: 7px 0 2px;
+}
+.card_product-reviews {
+  font-size: 17px;
+}
+
+@media (max-width: 767px) {
+  svg.review-svg {
+    width: 15px;
+    height: 15px;
+  }
+}

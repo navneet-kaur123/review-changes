@@ -1,0 +1,29 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "42a523c2b0f39b106e2e42a01c298f37"
+name = "review"
+handle = "review-78"
+application_url = "https://precise-convinced-tube-farmers.trycloudflare.com"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "xn-betgge-1ug8575ch3aia.myshopify.com"
+include_config_on_deploy = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_customers,read_themes,write_products"
+
+[auth]
+redirect_urls = [
+  "https://precise-convinced-tube-farmers.trycloudflare.com/auth/callback",
+  "https://precise-convinced-tube-farmers.trycloudflare.com/auth/shopify/callback",
+  "https://precise-convinced-tube-farmers.trycloudflare.com/api/auth/callback"
+]
+
+[webhooks]
+api_version = "2024-04"
+
+[pos]
+embedded = false

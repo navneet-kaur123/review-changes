@@ -1,0 +1,244 @@
+<link type="text/css" href="{{ 'style.css' | asset_url }}" rel="stylesheet">
+<script src="{{ 'review.js' | asset_url }}" defer></script>
+<script src="{{ 'callValidate.js' | asset_url }}" defer></script>
+<script>
+  window.shopDomain = '{{ shop.permanent_domain }}';
+</script>
+<section class="loader-wrap">
+  <span class="loader"> </span>
+  <div class="loader-data">
+    <h4>We are fetching review please wait</h4>
+  </div>
+</section>
+<div class="review-empty">
+  <img
+    src="{{ 'no-review.svg' | asset_url }}"
+    alt="Alt Text"
+    alt="img"
+    height="15"
+    width="15"
+    loading="lazy"
+    class="no-review"
+  >
+  <h4>Share Your Voice! Be the First to Review!</h4>
+  <p>
+    Make your mark! Your feedback matters. Share your thoughts and help others discover their next favorite experience.
+  </p>
+  <div class="add-review-btn">
+    <button type="button" class="common-btn write-review" onclick="checkToken()">Be the First to Rate</button>
+  </div>
+</div>
+<div class="no-review-found"></div>
+<div class="rating-review-wrap" id="{{ product.id }}">
+  <div class="rating-title">
+    <h3 class="title">Ratings & Reviews</h3>
+    <div class="reviewwrap">
+      <div class="sort-review">
+        <button type="button" class="write-review common-btn" onclick="checkToken()">Write a review</button>
+      </div>
+    </div>
+  </div>
+  <div class="rating-review"></div>
+  <div class="sortbtn-wrap">
+    <button type="button" class="sortbtn common-btn">
+      Sort by
+      <svg
+        id="svg1"
+        class="open-close-svg"
+        width="8"
+        height="9"
+        viewBox="0 0 8 9"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M7.75002 0.877499C7.6095 0.737811 7.41941 0.659405 7.22127 0.659405C7.02313 0.659405 6.83304 0.737811 6.69252 0.877499L4.00002 3.5325L1.34502 0.877499C1.2045 0.737811 1.01441 0.659405 0.816272 0.659405C0.618133 0.659405 0.428044 0.737811 0.287523 0.877499C0.217226 0.947221 0.16143 1.03017 0.123354 1.12157C0.0852773 1.21296 0.0656738 1.31099 0.0656738 1.41C0.0656738 1.50901 0.0852773 1.60704 0.123354 1.69843C0.16143 1.78983 0.217226 1.87278 0.287523 1.9425L3.46752 5.1225C3.53724 5.1928 3.6202 5.24859 3.71159 5.28667C3.80298 5.32474 3.90101 5.34435 4.00002 5.34435C4.09903 5.34435 4.19706 5.32474 4.28846 5.28667C4.37985 5.24859 4.4628 5.1928 4.53252 5.1225L7.75002 1.9425C7.82032 1.87278 7.87611 1.78983 7.91419 1.69843C7.95227 1.60704 7.97187 1.50901 7.97187 1.41C7.97187 1.31099 7.95227 1.21296 7.91419 1.12157C7.87611 1.03017 7.82032 0.947221 7.75002 0.877499Z" fill="#71717A"/>
+      </svg>
+    </button>
+    <ul class="sort-options" id="Sortby">
+      <li id="top-reviews">Top Reviews</li>
+      <li id="0">Most Recent</li>
+    </ul>
+  </div>
+  <div class="client-review-box-main"></div>
+  <div class="view-all-wrap"></div>
+</div>
+<div id="add-review" class="modal">
+  <div class="modal__content">
+    <div class="add-review-wrap">
+      <div class="modal-header">
+        <h2 class="title">Add Review</h2>
+        <p>Share your experience worked on your profile.</p>
+        <button class="modal__close">
+          <img src="{{ "cross-icon.jpg" | asset_img_url }}" alt="img" height="25" width="5" loading="lazy">
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="review-form">
+          <div class="form-wrap">
+            <label>Add Rating*</label>
+            <ul class="star-rating"></ul>
+            <span class="rating-form-errors" id="rating-select-error"></span>
+          </div>
+          <div class="form-wrap">
+            <label>Title*</label>
+            <input
+              id="title"
+              type="text"
+              class="form-control"
+              placeholder="What is your title?"
+              oninput="updateCharacterCount('title', 'title-counter', 10, 100)"
+            >
+            <div class="error-field">
+              <span class="rating-form-errors" id="title-error"></span>
+              <span id="title-counter" class="character-counter">Character limit: 0 / 100</span>
+            </div>
+          </div>
+          <div class="form-wrap">
+            <label>Description*</label>
+            <textarea
+              class="form-control"
+              id="comment"
+              placeholder="Add description"
+              oninput="updateCharacterCount('comment', 'comment-counter', 50, 500)"
+            ></textarea>
+            <div class="error-field">
+              <span class="rating-form-errors" id="comment-error"></span>
+              <span id="comment-counter" class="character-counter">Character limit: 0 / 500</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal__footer">
+        <button type="button" class="cancel common-btn modal__close">Cancel</button>
+        <input
+          type="hidden"
+          name="shopname"
+          id="shopId"
+          value="{{ shop.domain }}"
+
+        ><input
+          type="hidden"
+          name="productTitle"
+          id="productTitle"
+          value="{{ product.title }}"
+        >
+        <input
+          type="hidden"
+          name="customer"
+          id="customerName"
+          value="{{ customer.first_name }} {{ customer.last_name }}"
+        >
+        <input
+          type="hidden"
+          name="customer"
+          id="customerId"
+          value="{{ customer.id }}"
+        >
+        <input
+          type="hidden"
+          name="sectionid"
+          id="sectionid"
+          value="{{ section.id }}"
+        >
+        <input
+          type="hidden"
+          name="product"
+          id="productId"
+          value="{{ product.id }}"
+        >
+
+        <button type="button" class="submit common-btn" onclick="postReview(1)">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="review-added" class="modal">
+  <div class="modal__content">
+    <div class="review-added-successful">
+      <div class="modal-header">
+        <div class="feature">
+          <img src="{{ "featured-icon.png" | asset_img_url }}" alt="img" height="50" width="50" loading="lazy">
+        </div>
+        <button class="modal__close">
+          <img src="{{ "cross-icon.jpg" | asset_img_url }}" alt="img" height="25" width="25" loading="lazy">
+        </button>
+      </div>
+      <div class="modal-body">
+        <h3>Review Successfully Added</h3>
+        <p>
+          Thank you for sharing your feedback. Your review has been successfully submitted and is now listed after
+          approval by the administrator.
+        </p>
+      </div>
+      <div class="modal__footer">
+        <button type="button" class="modal__close continue-shopping common-btn">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="review-login-first" class="modal">
+  <div class="modal__content">
+    <div class="review-login-first-successful">
+      <div class="modal-header">
+        <button class="modal__close">
+          <img src="{{ "cross-icon.jpg" | asset_img_url }}" alt="img" height="25" width="25" loading="lazy">
+        </button>
+      </div>
+      <div class="modal-body">
+        <h2>Login Alert:</h2>
+        <p>You need to login first before submitting your review.</p>
+      </div>
+      <div class="modal__footer">
+        <a type="button" class="modal__login continue-shopping common-btn" href="/account"> Login </a>
+        <button type="button" class="modal__close continue-shopping common-btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="review-already-added" class="modal">
+  <div class="modal__content">
+    <div class="review-login-first-successful">
+      <div class="modal-header">
+        <button class="modal__close">
+          <img src="{{ "cross-icon.jpg" | asset_img_url }}" alt="img" height="25" width="25" loading="lazy">
+        </button>
+      </div>
+      <div class="modal-body">
+        <h2>Login Alert:</h2>
+        <p class="reviewPrompt">You already given your rating and review.</p>
+      </div>
+      <div class="modal__footer">
+        <button type="button" class="modal__close continue-shopping common-btn">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="refresh-the-page" class="modal">
+  <div class="modal__content refreshpage">
+    <div class="page-refresh">
+      <div class="modal-header">
+        <button class="modal__close">
+          <img src="{{ "cross-icon.jpg" | asset_img_url }}" alt="img" height="25" width="25" loading="lazy">
+        </button>
+      </div>
+      <div class="modal-body">
+        <h2>Their is some server error please refresh the page to add reviews</h2>
+      </div>
+      <div class="modal__footer">
+        <button type="button" class="modal__close continue-shopping common-btn" onclick="location.reload()">
+          Click here to refresh
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Review and   Rating",
+  "target": "section",
+  "disabled_on": {
+    "groups": ["footer", "header"]
+  }
+}
+{% endschema %}

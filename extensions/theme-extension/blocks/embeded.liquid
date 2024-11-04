@@ -1,0 +1,12 @@
+<script src="{{ 'ratingstars.js' | asset_url }}" defer></script>
+<link type="text/css" href="{{ 'styleembed.css' | asset_url }}" rel="stylesheet">
+<div style="position: fixed; bottom: 0; right: 0">
+<input type="hidden" value="{{ shop.url }}" id="embdshop">
+</div>
+{% schema %}
+  {
+    "name": "Pixlerlab Core Script",
+    "target": "body",
+    "settings": []
+  }
+{% endschema %}

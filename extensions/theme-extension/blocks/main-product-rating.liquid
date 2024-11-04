@@ -1,0 +1,93 @@
+<link type="text/css" href="{{ 'styleembed.css' | asset_url }}" rel="stylesheet">
+<script src="{{ 'mainproductrating.js' | asset_url }}" defer></script>
+<div class="card_product_rating_box main-prdouct-star"></div>
+<div id="star-color" hidden>{{ block.settings.star_color }}</div>
+
+{%- style -%}
+    .card_product_rating_box{
+            font-size: {{block.settings.fontsize}}px;
+        }
+      .card_product_rating_box{
+        font-size:{{block.settings.fontsize}}px;
+      }
+      .card_product_rating{
+        color:{{ block.settings.body_text }};
+      }
+      .review-svg {
+      color:{{block.settings.star_color}};
+      fill: {{block.settings.star_color}};
+  }
+      {% if block.settings.hidetext == true %}
+      .card_product_rating{
+        display:none;
+      }
+        {% endif %}
+        {% if block.settings.widget-alignment == 'left' %}
+        .card_product_rating_box {
+          align-items: flex-start;
+      }{% elsif block.settings.widget-alignment == 'right' %}
+      .card_product_rating_box {
+          align-items: flex-end;
+      }
+      {% else %}
+      .card_product_rating_box {
+          align-items: center;
+      }
+        {% endif %}
+{%- endstyle -%}
+{% schema %}
+{
+  "name": "Rating Widget",
+  "target": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "fontsize",
+      "min": 14,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "select font size",
+      "default": 16
+    },
+    {
+      "type": "checkbox",
+      "id": "hidetext",
+      "default": false,
+      "label": "Hide text"
+    },
+    {
+      "type": "select",
+      "id": "widget-alignment",
+      "label": "Widget Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "left"
+        },
+        {
+          "value": "center",
+          "label": "center"
+        },
+        {
+          "value": "right",
+          "label": "right"
+        }
+      ]
+    },
+
+    {
+      "type": "color",
+      "id": "body_text",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star color",
+      "default": "#FECE23"
+    }
+  ]
+}
+{% endschema %}
